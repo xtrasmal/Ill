@@ -8,7 +8,8 @@ use Illuminate\Support\ServiceProvider,
     Ill\System\Modules\Commands\ModulesMigrateCommand,
     Ill\System\Modules\Commands\ModulesPublishCommand,
     Ill\System\Modules\Commands\ModulesScanCommand,
-    Ill\System\Modules\Commands\ModulesSeedCommand;
+    Ill\System\Modules\Commands\ModulesSeedCommand,
+    Ill\System\Cli\ListSystemBehaviour;
 
 class IllServiceProvider extends ServiceProvider {
 
@@ -97,6 +98,10 @@ class IllServiceProvider extends ServiceProvider {
      */
     public function bootCommands()
     {
+        $this->app['system.behaviour'] = $this->app->share(function($app)
+        {
+            return new ListSystemBehaviour($app);
+        });
         // Add modules command
         $this->app['modules.list'] = $this->app->share(function($app)
         {
@@ -141,6 +146,7 @@ class IllServiceProvider extends ServiceProvider {
 
         // Now register all the commands
         $this->commands(array(
+            'system.behaviour',
             'modules.list',
             'modules.scan',
             'modules.publish',
