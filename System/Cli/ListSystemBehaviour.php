@@ -40,9 +40,8 @@ class ListSystemBehaviour extends Command {
         $this->info('==== Your application is capable of ====');
         // Get table helper
         $this->table = $this->getHelperSet()->get('table');
-        print_r($this->file_get_php_classes(app_path()));
 
-        var_export($this->whoImplements('Ill\Core\BehaviourPool\Interfaces\BehaviourPool'));
+        var_export($this->whoImplements('Iterator'));
 //        foreach (get_declared_classes() as $className) {
 //            if (in_array('BehaviourPool', class_implements($className))) {
 //                echo $className, PHP_EOL;
@@ -50,14 +49,14 @@ class ListSystemBehaviour extends Command {
 //            }
 //        }
 	}
-    public function file_get_php_classes($filepath) {
-        $files = File::allFiles($filepath);
-        foreach ($files as $file)
-        {
-            echo (string)$file, "\n";
-        }
-
-    }
+//    public function file_get_php_classes($filepath) {
+//        $files = File::allFiles($filepath);
+//        foreach ($files as $file)
+//        {
+//            echo (string)$file, "\n";
+//        }
+//
+//    }
 
     public function whoImplements($interface_name) {
         if (interface_exists($interface_name)) {
