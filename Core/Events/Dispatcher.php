@@ -36,7 +36,6 @@ class Dispatcher
         }
 
         foreach ($listeners as $listener) {
-
             $listener->handle($event);
         }
     }

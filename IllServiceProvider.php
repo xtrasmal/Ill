@@ -1,6 +1,8 @@
 <?php namespace Ill;
 
-use Illuminate\Support\ServiceProvider,
+use Ill\Core\Events\Dispatcher,
+    Illuminate\Container\Container,
+    Illuminate\Support\ServiceProvider,
     Ill\System\Modules\Finder,
     Ill\System\Modules\Commands\ModulesCommand,
     Ill\System\Modules\Commands\ModulesCreateCommand,
@@ -50,15 +52,8 @@ class IllServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
-        $this->app['context'] = $this->app->share(function($app)
-        {
-            return new ClientContext;
-        });
-
-        $this->app->bind('Ill\System\Contexts\Context', function($app)
-        {
-            return $app['context'];
+        $this->app->singleton('Ill\Core\Events\Dispatcher', function($app) {
+            return new Dispatcher(new Container($app));
         });
 
         $this->app['modules'] = $this->app->share(function($app)
@@ -87,6 +82,7 @@ class IllServiceProvider extends ServiceProvider {
 
     public function registerEvents()
     {
+
         $this->app['router']->matched(function($route, $request) {
             //echo 'hello';
         });

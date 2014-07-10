@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClientContext implements Context
+class AccountContext implements Context
 {
 
     /**
@@ -52,7 +52,7 @@ class ClientContext implements Context
      */
     public function column()
     {
-        return 'client_id';
+        return 'account_id';
     }
 
     /**
@@ -62,7 +62,7 @@ class ClientContext implements Context
      */
     public function table()
     {
-        return 'clients';
+        return 'accounts';
     }
 
 }

@@ -3,15 +3,14 @@
 use StdClass;
 use Illuminate\Database\Eloquent\Builder;
 
-abstract class TenantRepository
-{
+abstract class TenantRepository extends AbstractRepository {
 
     /**
      * Scope a query based upon a column name
      *
      * @param \Illuminate\Database\Eloquent\Builder $model
      * @internal param $ Illuminate\Database\Eloquent\Builder
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeColumn(Builder $model)
     {
@@ -28,7 +27,7 @@ abstract class TenantRepository
      *
      * @param \Illuminate\Database\Eloquent\Builder $model
      * @internal param $ Illuminate\Database\Eloquent\Builder
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeRelationship(Builder $model)
     {
@@ -47,7 +46,7 @@ abstract class TenantRepository
      * Retrieve all entities through a scoped column
      *
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function allThroughColumn(array $with = array())
     {
@@ -60,7 +59,7 @@ abstract class TenantRepository
      * Retrieve all entities through a scoped relationship
      *
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function allThroughRelationship(array $with = array())
     {
@@ -74,7 +73,7 @@ abstract class TenantRepository
      *
      * @param int $id
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Model
      */
     public function findThroughColumn($id, array $with = array())
     {
@@ -88,7 +87,7 @@ abstract class TenantRepository
      *
      * @param int $id
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Model
      */
     public function findThroughRelationship($id, array $with = array())
     {
@@ -159,7 +158,7 @@ abstract class TenantRepository
      * @param string $key
      * @param mixed $value
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Model
      */
     public function getFirstByThroughColumn($key, $value, array $with = array())
     {
@@ -174,7 +173,7 @@ abstract class TenantRepository
      * @param string $key
      * @param mixed $value
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Model
      */
     public function getFirstByThroughRelationship($key, $value, array $with = array())
     {
@@ -189,7 +188,7 @@ abstract class TenantRepository
      * @param string $key
      * @param mixed $value
      * @param array $with
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function getManyByThroughColumn($key, $value, array $with = array())
     {
