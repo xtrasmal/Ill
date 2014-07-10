@@ -61,8 +61,6 @@ class IllServiceProvider extends ServiceProvider {
             return new Finder($app, $app['files'], $app['config']);
         });
 
-
-        $this->registerEvents();
 	}
 
 	/**
@@ -74,19 +72,6 @@ class IllServiceProvider extends ServiceProvider {
 	{
 		return array('modules');
 	}
-
-    /**
-     * Register global event listeners
-     *
-     */
-
-    public function registerEvents()
-    {
-
-        $this->app['router']->matched(function($route, $request) {
-            //echo 'hello';
-        });
-    }
 
     /**
      * Register all available commands
