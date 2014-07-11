@@ -2,5 +2,7 @@
 
 interface CommandBusInterface
 {
+
     public function execute($command);
+    
 }
