@@ -60,6 +60,10 @@ class IllServiceProvider extends ServiceProvider {
         {
             return new Finder($app, $app['files'], $app['config']);
         });
+        $this->app->bindShared('Ill\Core\CommandBus\Interfaces\CommandBusInterface', function()
+        {
+            return $this->app->make('Ill\Core\CommandBus\ValidationCommandBus');
+        });
 
 	}
 

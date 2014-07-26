@@ -1,12 +1,15 @@
 <?php namespace Ill\Core\CommandBus;
 
-use Illuminate\Container\Container,
+use InvalidArgumentException,
+    Illuminate\Container\Container,
     Ill\Core\CommandBus\Interfaces\CommandBusInterface;
+
 
 class DefaultCommandBus implements CommandBusInterface
 {
-    private $container;
-    private $inflector;
+    protected $container;
+    protected $inflector;
+    private $decorators;
 
     public function __construct(Container $container,
                                 CommandNameInflector $inflector)
@@ -24,4 +27,27 @@ class DefaultCommandBus implements CommandBusInterface
     {
         return $this->container->make($this->inflector->getHandlerClass($command));
     }
+
+    public function decorate($className)
+    {
+        $this->decorators[] = $className;
+    }
+
+    protected function executeDecorators($command)
+    {
+        foreach ($this->decorators as $className)
+        {
+            $instance = $this->container->make($className);
+
+            if ( ! $instance instanceof CommandBusInterface)
+            {
+                $message = 'The class to decorate must be an implementation of Ill\Core\CommandBus\Interfaces\CommandBusInterface';
+
+                throw new InvalidArgumentException($message);
+            }
+
+            $instance->execute($command);
+        }
+    }
+
 }

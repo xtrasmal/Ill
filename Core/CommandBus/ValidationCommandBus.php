@@ -1,36 +1,28 @@
 <?php namespace Ill\Core\CommandBus;
 
-use Ill\Core\CommandBus\Interfaces\CommandBusInterface,
-    Illuminate\Container\Container,
-    ReflectionException;
+use ReflectionException;
 
-class ValidationCommandBus implements CommandBusInterface
+class ValidationCommandBus extends DefaultCommandBus
 {
-    private $bus;
-    private $container;
-    private $inflector;
-
-    public function __construct(DefaultCommandBus $bus,
-                                Container $container,
-                                CommandNameInflector $inflector)
-    {
-        $this->bus = $bus;
-        $this->container = $container;
-        $this->inflector = $inflector;
-    }
 
     public function execute($command)
     {
         $this->validate($command);
-        return $this->bus->execute($command);
+        return parent::execute($command);
     }
 
     private function validate($command)
     {
+
         $validatorClass = $this->inflector->getValidatorClass($command);
+
         try {
             $validator = $this->container->make($validatorClass);
             $validator->validate($command);
-        } catch (ReflectionException $e) {}
+
+        } catch (ReflectionException $e) {
+            return $e->getMessage();
+
+        }
     }
 }
